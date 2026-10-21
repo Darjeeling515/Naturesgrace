@@ -192,4 +192,163 @@
     <script>
         let isDarkMode = false;
 
-        // 表のサプリメント
+        // 表のサプリメントデータ（16種類）
+        const normalProducts = [
+            { code: "H&W-001", name: "ピュアビタミンC 1000mg", desc: "レモン50個分のビタミンCを1粒に凝縮。透明感のある毎日に。", price: "¥1,800" },
+            { code: "H&W-002", name: "オーガニック・プロテイン", desc: "植物由来のタンパク質。人工甘味料不使用の自然な味わい。", price: "¥3,980" },
+            { code: "H&W-003", name: "DHA&EPA フィッシュオイル", desc: "青魚のサラサラ成分。考える力と健康診断の数値が気になる方に。", price: "¥2,400" },
+            { code: "H&W-004", name: "マルチビタミン＆ミネラル", desc: "22種類の必須栄養素をバランス良く配合したベースサプリ。", price: "¥2,100" },
+            { code: "H&W-005", name: "プレミアムマカ＆亜鉛", desc: "エネルギッシュな毎日をサポート。男性にも女性にもおすすめ。", price: "¥2,800" },
+            { code: "H&W-006", name: "ヘム鉄プラス葉酸", desc: "吸収率の高いヘム鉄を採用。クラクラが気になる女性の味方。", price: "¥1,650" },
+            { code: "H&W-007", name: "カルシウム＆マグネシウム", desc: "理想のバランス2:1で配合。丈夫な骨と歯の形成を助けます。", price: "¥1,500" },
+            { code: "H&W-008", name: "ビタミンB群コンプレックス", desc: "エネルギー生成を助ける8種類のビタミンB群を網羅。", price: "¥1,200" },
+            { code: "H&W-009", name: "快眠サポート メラトニン", desc: "深い休息をサポートし、すっきりとした朝の目覚めへ。", price: "¥2,900" },
+            { code: "H&W-010", name: "プロバイオティクス乳酸菌", desc: "奥まで届くカプセルで腸内フローラを整え、スッキリを実感。", price: "¥3,200" },
+            { code: "H&W-011", name: "低分子コラーゲンペプチド", desc: "吸収力にこだわったコラーゲン。ぷるんとしたハリとうるおいを。", price: "¥3,500" },
+            { code: "H&W-012", name: "ビルベリーEX＆ルテイン", desc: "PCやスマホをよく使う方に。クリアでピントの合った視界を。", price: "¥2,600" },
+            { code: "H&W-013", name: "ヒアルロン酸モイスチャー", desc: "内側から潤いをキープする美容サプリ。乾燥しがちな季節に。", price: "¥2,200" },
+            { code: "H&W-014", name: "高麗人参エキストラクト", desc: "古来から伝わる滋養強壮成分を独自の製法で高濃度に凝縮。", price: "¥4,500" },
+            { code: "H&W-015", name: "グルコサミン＆コンドロイチン", desc: "階段の上り下りやスムーズな歩みをサポートする軟骨成分。", price: "¥3,100" },
+            { code: "H&W-016", name: "食物繊維イヌリンパウダー", desc: "毎日のスッキリをサポートする水溶性食物繊維。無味無臭。", price: "¥1,400" }
+        ];
+
+        // 裏の怪しい薬データ（16種類）
+        const darkProducts = [
+            { code: "DW-RX-001", name: "【指定劇薬】仮死後致死カプセル", desc: "服用後すぐに心停止し「仮死状態」に陥る。その後多臓器不全で確実に死亡する。※現在カートに入っています", price: "¥1,500,000" },
+            { code: "DW-RX-002", name: "忘却の滴（記憶消去剤）", desc: "飲料に数滴混ぜるだけで、直近24時間の記憶を不可逆的に完全に消去する無色無臭の液体。", price: "¥850,000" },
+            { code: "DW-RX-003", name: "狂気の粉（幻覚誘発剤）", desc: "対象に極度のパラノイアと悪夢のような幻覚を72時間継続して引き起こす。精神崩壊リスク高。", price: "¥420,000" },
+            { code: "DW-RX-004", name: "暴走ステロイド【リミットブレイク】", desc: "筋力を一時的に通常の5倍に引き上げるが、効果終了後に全身の筋繊維がズタズタに崩壊する。", price: "¥600,000" },
+            { code: "DW-RX-005", name: "マインドハック・シリンジ", desc: "注射された対象の自我と自由意志を奪い、術者の命令に絶対服従する状態にする薬液。", price: "¥2,800,000" },
+            { code: "DW-RX-006", name: "ペインキラー・ゼロ", desc: "痛覚神経を完全に焼き切る。致死量の出血や骨折などの致命傷を負っても一切の痛みを感じなくなる。", price: "¥300,000" },
+            { code: "DW-RX-007", name: "不眠不休剤（デスマーチ）", desc: "14日間、一睡もせず極度の集中力を保ったまま活動可能になるが、効果終了時に脳血管が破裂する。", price: "¥550,000" },
+            { code: "DW-RX-008", name: "感情凍結シロップ", desc: "脳の扁桃体を麻痺させ、一切の喜怒哀楽、共感能力、恐怖心を完全に失わせる。", price: "¥700,000" },
+            { code: "DW-RX-009", name: "クロノス・エリクサー", desc: "自身の寿命を10年削り落とす代わりに、細胞分裂を暴走させ一時的に肉体を全盛期まで若返らせる。", price: "¥3,500,000" },
+            { code: "DW-RX-010", name: "ブラッドボイル・パウダー", desc: "吸引させた対象の血圧を数秒で異常上昇させ、自然死に見せかけた脳溢血を引き起こす。", price: "¥1,200,000" },
+            { code: "DW-RX-011", name: "虚無堕ちのタブレット", desc: "服用者の精神構造を根底から破壊し、一切の反応を示さない生ける屍（廃人）へと変貌させる。", price: "¥1,800,000" },
+            { code: "DW-RX-012", name: "即効性細胞融解液", desc: "皮膚に一滴触れた瞬間から組織の融解が始まり、跡形もなくドロドロに溶かす極秘の劇薬。", price: "¥2,500,000" },
+            { code: "DW-RX-013", name: "真実の吐息（自白剤・改）", desc: "脳の嘘をつく機能を物理的に麻痺させ、質問に対して全て真実を強制的に喋らせるガス。", price: "¥900,000" },
+            { code: "DW-RX-014", name: "サイレント・パルス", desc: "服用後、声帯の神経を一時的に完全に麻痺させ、48時間一切の声を奪う錠剤。", price: "¥250,000" },
+            { code: "DW-RX-015", name: "腐敗促進ガス弾", desc: "密閉空間で使用すると、有機物の腐敗速度を通常の1000倍に加速させる特殊兵器。", price: "¥4,000,000" },
+            { code: "DW-RX-016", name: "ドッペルゲンガー・エキス", desc: "顔の骨格と筋肉を一時的に軟化させ、他者の顔を物理的に模倣しやすくする変装専用薬。", price: "¥5,500,000" }
+        ];
+
+        // トースト通知を表示する関数（alertの代替）
+        function showToast(message) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.innerText = message;
+            container.appendChild(toast);
+            
+            // アニメーション完了後に削除
+            setTimeout(() => {
+                if(toast.parentElement) toast.parentElement.removeChild(toast);
+            }, 3000);
+        }
+
+        // 商品を描画する関数
+        function renderProducts(products) {
+            const grid = document.getElementById('product-grid');
+            grid.innerHTML = '';
+            products.forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <div>
+                        <span class="item-code">品番: ${p.code}</span>
+                        <h3>${p.name}</h3>
+                        <p>${p.desc}</p>
+                    </div>
+                    <div>
+                        <div class="price">${p.price}</div>
+                        <button class="add-to-cart" onclick="showToast('カートに追加しました')">カートに入れる</button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // 初期表示（表のサプリメント）
+        renderProducts(normalProducts);
+
+        // パスワード判定（0729）
+        function checkCode() {
+            const code = document.getElementById('promo-code').value;
+            const errorMsg = document.getElementById('error-msg');
+            
+            if (code === "0729") {
+                errorMsg.style.display = 'none';
+                document.getElementById('warning-modal').style.display = 'flex';
+                document.getElementById('promo-code').value = ''; // 入力をクリア
+            } else {
+                errorMsg.style.display = 'block';
+            }
+        }
+
+        // 警告モーダルを承諾して裏ページへ
+        function acceptRisk() {
+            document.getElementById('warning-modal').style.display = 'none';
+            isDarkMode = true;
+            document.body.classList.add('dark-mode');
+            
+            document.getElementById('site-title').innerText = "【闇市場】非合法薬物・劇薬取引所";
+            document.getElementById('site-desc').innerText = "※取扱厳重注意：アクセスログおよび取引履歴は全て暗号化されます。";
+            
+            renderProducts(darkProducts);
+        }
+
+        // セーフモード（表）へ戻る
+        function returnToNormal() {
+            isDarkMode = false;
+            document.body.classList.remove('dark-mode');
+            
+            document.getElementById('site-title').innerText = "Health & Wellness公式ストア";
+            document.getElementById('site-desc').innerText = "自然の力で、あなたの健やかな毎日をサポートします";
+            
+            renderProducts(normalProducts);
+            showToast('安全な接続に切り替わりました');
+        }
+
+        // カートの開閉処理
+        function openCart() {
+            const cartContent = document.getElementById('cart-content');
+            
+            if (!isDarkMode) {
+                // 表モードのカート
+                cartContent.innerHTML = `
+                    <h2 style="margin-bottom: 20px; font-size: 1.5rem;">ショッピングカート</h2>
+                    <p style="font-size: 1.1rem;">現在カートには何も入っていません。</p>
+                    <button class="close-btn" onclick="closeCart()">閉じる</button>
+                `;
+            } else {
+                // 裏モードのカート（タイムリミット2時間）
+                cartContent.innerHTML = `
+                    <h2 style="color: #ff5252; margin-bottom: 10px; font-size: 1.5rem;">現在のカート内容（暗号化済）</h2>
+                    <div class="dark-cart-warning">
+                        <strong>【強制追加アイテム】</strong><br>
+                        品番: DW-RX-001<br>
+                        品名: 【指定劇薬】仮死後致死カプセル x 1<br>
+                        小計: ¥1,500,000<br><br>
+                        <em>※売人からのメッセージ※</em><br>
+                        「例の件、承知した。手違いで死なせたくないなら、仮死状態から<b>【2時間以内（120分）】</b>に以下の手順で解毒剤を作って飲ませろ。材料はそっちで用意しろよ。」
+                        <div class="recipe">
+【緊急解毒薬（リヴァイブ・ドロップ）の調合手順】
+1. 純水 50ml に「アズライト結晶の粉末」を2g溶かす。
+2. 液体が青く変色したら、「合成ペプチドX-9」を3滴垂らし、激しく撹拌する。
+3. 最後に塩化ナトリウムを少々加え、対象の舌下（ぜっか）に投与しろ。
+
+※タイムリミット（2時間）を過ぎると心筋が完全に壊死し、蘇生は不可能になる。健闘を祈る。
+                        </div>
+                    </div>
+                    <button class="close-btn" onclick="closeCart()" style="background: #ff5252; color: #fff; font-weight: bold;">閉じて取引を続ける</button>
+                `;
+            }
+            document.getElementById('cart-modal').style.display = 'flex';
+        }
+
+        function closeCart() {
+            document.getElementById('cart-modal').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
